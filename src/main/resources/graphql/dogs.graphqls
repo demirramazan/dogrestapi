@@ -6,8 +6,10 @@ type Dog{
 }
 
 type Query{
-    findAllDogs: [Dog]!
-    findDogsById: Dog!
+    findAllDogs:[Dog]!
+    findDogsById(id: ID!):Dog!
+    findDogBreeds:String!
+    findDogBreedById(id:ID!):String!
 }
 
 type Mutation{

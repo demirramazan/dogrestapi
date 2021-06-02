@@ -3,6 +3,7 @@ package com.udacity.dogrestapi.graphql;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.udacity.dogrestapi.entity.Dog;
 import com.udacity.dogrestapi.execption.DogNotFoundException;
+import com.udacity.dogrestapi.execption.DogNotFoundGraphqlException;
 import com.udacity.dogrestapi.repository.DogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,12 @@ public class Query implements GraphQLQueryResolver {
 
     public String findDogBreedById(Long id) {
         return dogRepository.getDogBreedsById(id)
-                .orElseThrow(() -> new DogNotFoundException("Dog Not Found", id));
+                .orElseThrow(() -> new DogNotFoundGraphqlException("Dog Not Found", id));
+    }
+
+    public Dog findDogsById(Long id) {
+        return dogRepository.findById(id)
+                .orElseThrow(() -> new DogNotFoundGraphqlException("Dog Not Found", id));
     }
 
     public List<String> findAllDogNames() {
